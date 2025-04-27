@@ -1,35 +1,21 @@
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet"
-import { SafeAreaView, ScrollView, Text, View } from "react-native"
-import { BottomCTA, IconButton } from "../components/ui/button"
-import { useBottomSheet } from "../hooks/use-bottom-sheet"
 import { Fragment } from "react"
+import { SafeAreaView, ScrollView, Text, View } from "react-native"
+import { IconButton } from "../components/ui/button"
+import { useNavigation } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack";
 
-export default function PageMain() {
-
-    const [ref, control] = useBottomSheet();
-
+export default function MainScreen() {
+    const navigation = useNavigation<StackNavigationProp<any>>();
     return (
         <Fragment>
             <SafeAreaView className="flex-1">
                 <ScrollView className="p-2">
                     <View className="h-12 flex-row justify-end">
-                        <IconButton onPress={control.open}>
+                        <IconButton onPress={() => navigation.push('add.expend')}>
                             <Text>+</Text>
                         </IconButton>
                     </View>
                 </ScrollView>
-                <BottomSheet
-                    ref={ref}
-                    index={-1}
-                    onChange={control.handleSheetChanges}
-                >
-                    <BottomSheetView className="flex-1 items-center gap-4 p-4">
-                        <Text>BottomSheet TEST</Text>
-                        <BottomCTA onPress={control.close}>
-                            <Text className="text-white">저장하기</Text>
-                        </BottomCTA>
-                    </BottomSheetView>
-                </BottomSheet>
             </SafeAreaView>
         </Fragment>
     )
